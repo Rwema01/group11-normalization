@@ -36,11 +36,20 @@ def explode_paired_columns(df, col1, col2, new_col1, new_col2, sep='|'):
     df = df.explode('temp')
     
     # Split the tuples back into columns
-    df[new_col1] = df['temp'].apply(lambda x: x[0])
-    df[new_col2] = df['temp'].apply(lambda x: x[1])
+    v1 = df['temp'].apply(lambda x: x[0])
+    v2 = df['temp'].apply(lambda x: x[1])
     
-    # Drop temporary columns
-    df = df.drop(columns=[col1, col2, 'temp'])
+    # Drop temporary column
+    df = df.drop(columns=['temp'])
+    
+    # If target column names differ from source, drop original source columns
+    if col1 != new_col1 and col1 in df.columns:
+        df = df.drop(columns=[col1])
+    if col2 != new_col2 and col2 in df.columns:
+        df = df.drop(columns=[col2])
+        
+    df[new_col1] = v1
+    df[new_col2] = v2
     return df
 
 df_1nf = explode_paired_columns(df_1nf, 'MaterialSupplied', 'MaterialUnitCost', 
@@ -53,5 +62,5 @@ df_1nf = explode_paired_columns(df_1nf, 'EquipmentUsed', 'EquipmentRentalCost',
 # Save the 1NF table
 df_1nf.to_csv('1NF_table.csv', index=False)
 
-print("✅ 1NF transformation complete!")
+print("[1NF] Transformation complete!")
 print(f"Rows before: {len(df)}, Rows after: {len(df_1nf)}")
