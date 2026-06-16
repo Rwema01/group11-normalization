@@ -1,0 +1,19 @@
+cat > .gitignore << 'EOF'
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+
+# IDE
+.vscode/
+.idea/
+
+# CSV backups
+*~.csv
+*.bak
+EOF
