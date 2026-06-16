@@ -3,7 +3,7 @@
 ## 👥 Members
 | Name | Role | Branch |
 |------|------|--------|
-| Karabo Innocent Pamela | Group Leader, 2NF | `karabo-2nf` |
+| Karabo Innocent Pamela | Group Leader, 2NF Lead | `karabo-2nf` |
 | Rwema Gisa | 1NF Lead | `rwema-1nf` |
 | Sonia Wisdom Etuhoko | BCNF Lead | `sonia-bcnf` |
 | Ange Umutoni | 3NF Lead | `ange-3nf` |
