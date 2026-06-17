@@ -10,7 +10,7 @@
 | Irene Wanjiru Winnie | 4NF Lead + Documentation | `irene-4nf-doc` |
 
 ## 📂 Project Structure
-
+```text
 group11-normalization/
 ├── README.md
 ├── 1NF_explanation.md
@@ -25,7 +25,7 @@ group11-normalization/
 ├── 4NF_explanation.md
 ├── 4NF_table.csv
 └── normalization_explanation.pdf
-
+```
 
 ## 📋 Normalization Stages
 | Stage | Description | Lead |
