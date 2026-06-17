@@ -1,5 +1,3 @@
-bash
-cat > README.md << 'EOF'
 # Group 11 - Database Normalization Activity
 
 ## 👥 Members
@@ -47,4 +45,3 @@ text
 
 ## 📦 Submission
 Final zip: `Group11_Normalization_Submission.zip`
-EOF
