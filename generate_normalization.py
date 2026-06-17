@@ -1,6 +1,8 @@
 import os
 import pandas as pd
 import numpy as np
+from fpdf import FPDF
+import zipfile
 
 def clean_dir(path):
     if os.path.exists(path):
@@ -549,7 +551,7 @@ Because these independent multi-valued facts are completely isolated in their ow
         '3NF/supplier_phones.csv': ['SupplierID', 'Phone'],
         '3NF/materials.csv': ['MaterialID'],
         '3NF/equipment.csv': ['EquipmentID'],
-        '3NF/project_materials.csv': ['ProjectID', 'MaterialID', 'SupplierID'], # Cost depends on Project-Material-Supplier combo
+        '3NF/project_materials.csv': ['ProjectID', 'MaterialID', 'SupplierID'],
         '3NF/project_equipment.csv': ['ProjectID', 'EquipmentID']
     }
     
@@ -562,11 +564,111 @@ Because these independent multi-valued facts are completely isolated in their ow
             print(f"    [PASS] PK uniqueness for {filepath}")
 
     if all_passed:
-        print("[PASS] SUCCESS: All projection-based and primary key validations passed! Zero data loss.")
+        print("[PASS] SUCCESS: All validations passed!")
+        
+        # ----------------------------------------------------
+        # 7. COMPILE PDF EXPLANATION REPORT
+        # ----------------------------------------------------
+        print("[PDF] Compiling normalization_explanation.pdf...")
+        compile_pdf_explanation()
+        
+        # ----------------------------------------------------
+        # 8. CREATE ZIP ARCHIVE
+        # ----------------------------------------------------
+        print("[ZIP] Creating Group11_Normalization_Submission.zip...")
+        create_submission_zip()
+        
         return True
     else:
         print("[FAIL] ERROR: Validation checks failed.")
         return False
+
+class ExplanationPDF(FPDF):
+    def header(self):
+        self.set_font('Helvetica', 'B', 12)
+        self.cell(0, 10, 'Database Normalization Report - Group 11', border=False, ln=True, align='C')
+        self.draw_line()
+        self.ln(10)
+        
+    def footer(self):
+        self.set_y(-15)
+        self.set_font('Helvetica', 'I', 8)
+        self.cell(0, 10, f'Page {self.page_no()}/{{nb}}', align='C')
+        
+    def draw_line(self):
+        self.set_draw_color(180, 180, 180)
+        self.line(10, 20, 200, 20)
+
+def compile_pdf_explanation():
+    pdf = ExplanationPDF()
+    pdf.alias_nb_pages()
+    
+    stages = [
+        ('1NF/1NF_explanation.md', 'Stage 1: First Normal Form (1NF)'),
+        ('2NF/2NF_explanation.md', 'Stage 2: Second Normal Form (2NF)'),
+        ('3NF/3NF_explanation.md', 'Stage 3: Third Normal Form (3NF)'),
+        ('BCNF/BCNF_explanation.md', 'Stage 4: Boyce-Codd Normal Form (BCNF)'),
+        ('4NF/4NF_explanation.md', 'Stage 5: Fourth Normal Form (4NF)')
+    ]
+    
+    for filepath, title in stages:
+        pdf.add_page()
+        pdf.set_font('Helvetica', 'B', 16)
+        pdf.cell(0, 10, title, ln=True)
+        pdf.ln(5)
+        
+        pdf.set_font('Helvetica', '', 10)
+        if os.path.exists(filepath):
+            with open(filepath, 'r', encoding='utf-8') as f:
+                content = f.read()
+            
+            lines = content.split('\n')
+            for line in lines:
+                line_stripped = line.strip()
+                if line_stripped.startswith('#'):
+                    # Heading
+                    level = len(line) - len(line.lstrip('#'))
+                    pdf.set_font('Helvetica', 'B', 14 - level)
+                    pdf.multi_cell(0, 8, line.replace('#', '').strip())
+                    pdf.ln(2)
+                    pdf.set_font('Helvetica', '', 10)
+                elif line_stripped.startswith('*') or line_stripped.startswith('-') or line_stripped.startswith('|'):
+                    # Lists and Tables
+                    pdf.set_font('Courier', '', 9)
+                    pdf.multi_cell(0, 5, line)
+                    pdf.set_font('Helvetica', '', 10)
+                elif line_stripped == '':
+                    pdf.ln(2)
+                else:
+                    pdf.multi_cell(0, 5, line)
+        else:
+            pdf.cell(0, 10, f"Explanation file {filepath} not found.", ln=True)
+            
+    pdf.output('normalization_explanation.pdf')
+    print("  [SUCCESS] Generated normalization_explanation.pdf")
+
+def create_submission_zip():
+    zip_filename = 'Group11_Normalization_Submission.zip'
+    if os.path.exists(zip_filename):
+        os.remove(zip_filename)
+        
+    with zipfile.ZipFile(zip_filename, 'w', zipfile.ZIP_DEFLATED) as zipf:
+        # Add stage folders and their CSV deliverables recursively
+        # (Excluding temporary python scripts and work-in-progress files)
+        stages = ['1NF', '2NF', '3NF', 'BCNF', '4NF']
+        for stage in stages:
+            for root, dirs, files in os.walk(stage):
+                for file in files:
+                    if file.endswith('.csv') or file.endswith('.md'):
+                        file_path = os.path.join(root, file)
+                        # Relativize path for zip structure
+                        zipf.write(file_path, file_path)
+        
+        # Add normalization_explanation.pdf to root of the ZIP
+        if os.path.exists('normalization_explanation.pdf'):
+            zipf.write('normalization_explanation.pdf', 'normalization_explanation.pdf')
+            
+    print(f"  [SUCCESS] Generated submission archive {zip_filename}")
 
 if __name__ == '__main__':
     success = generate_all()

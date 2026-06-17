@@ -13,18 +13,35 @@
 ```text
 group11-normalization/
 ├── README.md
-├── 1NF_explanation.md
-├── 1NF_table.csv
-├── raw_data_analysis.md
-├── 2NF_explanation.md
-├── 2NF_table.csv
-├── 3NF_explanation.md
-├── 3NF_table.csv
-├── BCNF_explanation.md
-├── BCNF_table.csv
-├── 4NF_explanation.md
-├── 4NF_table.csv
-└── normalization_explanation.pdf
+├── big3_construction_raw_data.csv
+├── generate_normalization.py
+├── 1NF/
+│   ├── 1NF_table.csv
+│   ├── 1NF_explanation.md
+│   ├── transform_to_1nf.py
+│   └── raw_data_analysis.md
+├── 2NF/
+│   ├── projects.csv
+│   ├── workers.csv
+│   ├── worker_skills.csv
+│   ├── worker_certifications.csv
+│   ├── project_workers.csv
+│   ├── suppliers.csv
+│   ├── supplier_phones.csv
+│   ├── project_materials.csv
+│   ├── project_equipment.csv
+│   ├── 2NF_explanation.md
+│   ├── transform_to_2nf.py
+│   └── verify_2nf.py
+├── 3NF/
+│   ├── [14 Decomposed CSV tables (projects, clients, supervisors, etc.)]
+│   └── 3NF_explanation.md
+├── BCNF/
+│   ├── [14 BCNF-Compliant CSV tables]
+│   └── BCNF_explanation.md
+└── 4NF/
+    ├── [14 4NF-Compliant CSV tables]
+    └── 4NF_explanation.md
 ```
 
 ## 📋 Normalization Stages
