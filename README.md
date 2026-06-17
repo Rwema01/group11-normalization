@@ -10,36 +10,31 @@
 | Irene Wanjiru Winnie | 4NF Lead + Documentation | `irene-4nf-doc` |
 
 ## 📂 Project Structure
+
 group11-normalization/
-├── main/ # Final submission-ready files
-│ ├── 1NF/
-│ ├── 2NF/
-│ ├── 3NF/
-│ ├── BCNF/
-│ └── 4NF/
-├── branches/ # Each member's work in progress
-│ ├── rwema-1nf/
-│ ├── karabo-2nf/
-│ ├── ange-3nf/
-│ ├── sonia-bcnf/
-│ └── irene-4nf-doc/
-└── README.md
+├── README.md
+├── 1NF_explanation.md
+├── 1NF_table.csv
+├── raw_data_analysis.md
+├── 2NF_explanation.md
+├── 2NF_table.csv
+├── 3NF_explanation.md
+├── 3NF_table.csv
+├── BCNF_explanation.md
+├── BCNF_table.csv
+├── 4NF_explanation.md
+├── 4NF_table.csv
+└── normalization_explanation.pdf
+
 
 ## 📋 Normalization Stages
-1. **1NF** → Atomic values, no repeating groups (Rwema)
-2. **2NF** → No partial dependencies (Karabo)
-3. **3NF** → No transitive dependencies (Ange)
-4. **BCNF** → Every determinant is a candidate key (Sonia)
-5. **4NF** → No multi-valued dependencies (Irene)
+| Stage | Description | Lead |
+|-------|-------------|------|
+| **1NF** | Atomic values, no repeating groups | Rwema ✅ |
+| **2NF** | No partial dependencies | Karabo ✅ |
+| **3NF** | No transitive dependencies | Ange ✅ |
+| **BCNF** | Every determinant is a candidate key | Sonia ✅ |
+| **4NF** | No multi-valued dependencies | Irene ✅ |
 
-## 📅 Timeline
-| Stage | Due | Status |
-|-------|-----|--------|
-| 1NF | Tuesday AM | ⬜ In Progress |
-| 2NF | Tuesday PM | ⬜ Pending |
-| 3NF | Tuesday PM | ⬜ Pending |
-| BCNF | Wednesday AM | ⬜ Pending |
-| 4NF + Documentation | Wednesday PM | ⬜ Pending |
-
-## 📦 Submission
-Final zip: `Group11_Normalization_Submission.zip`
+## 🔗 Repository
+https://github.com/Rwema01/group11-normalization
