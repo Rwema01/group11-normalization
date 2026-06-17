@@ -1,0 +1,7 @@
+EquipmentID,EquipmentName,EquipmentRentalCost
+EQ001,Crane,5000
+EQ002,Bulldozer,3000
+EQ003,Excavator,4000
+EQ004,Mixer,800
+EQ005,Forklift,1200
+EQ006,Lift,2000
