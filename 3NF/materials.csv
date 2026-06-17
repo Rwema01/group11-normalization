@@ -1,0 +1,9 @@
+MaterialID,MaterialName,MaterialUnitCost
+M001,Concrete,120
+M002,Steel,300
+M003,Steel Beams,500
+M004,Rebar,200
+M005,Bricks,2
+M006,Cement,15
+M007,Glass Panels,250
+M008,Tiles,20
