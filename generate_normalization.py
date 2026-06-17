@@ -18,11 +18,11 @@ def generate_all():
     df_raw = pd.read_csv('big3_construction_raw_data.csv')
     
     # Setup folders
-    clean_dir('main/1NF')
-    clean_dir('main/2NF')
-    clean_dir('main/3NF')
-    clean_dir('main/BCNF')
-    clean_dir('main/4NF')
+    clean_dir('1NF')
+    clean_dir('2NF')
+    clean_dir('3NF')
+    clean_dir('BCNF')
+    clean_dir('4NF')
     
     # ----------------------------------------------------
     # 1. 1NF GENERATION
@@ -69,10 +69,10 @@ def generate_all():
     for col in df_1nf.select_dtypes(include=['object']).columns:
         df_1nf[col] = df_1nf[col].str.strip()
         
-    df_1nf.to_csv('main/1NF/1NF_table.csv', index=False)
+    df_1nf.to_csv('1NF/1NF_table.csv', index=False)
     
     # Write 1NF Explanation
-    with open('main/1NF/1NF_explanation.md', 'w', encoding='utf-8') as f:
+    with open('1NF/1NF_explanation.md', 'w', encoding='utf-8') as f:
         f.write("""# Stage 1: First Normal Form (1NF) Explanation
 
 ## Which columns violated 1NF?
@@ -121,17 +121,17 @@ Since all attributes are in a single table, the composite primary key must conta
     project_materials_2nf = df_1nf[['ProjectID', 'SupplierName', 'MaterialSupplied', 'MaterialUnitCost']].drop_duplicates().sort_values(['ProjectID', 'SupplierName', 'MaterialSupplied'])
     project_equipment_2nf = df_1nf[['ProjectID', 'EquipmentUsed', 'EquipmentRentalCost']].drop_duplicates().sort_values(['ProjectID', 'EquipmentUsed'])
     
-    projects_2nf.to_csv('main/2NF/projects.csv', index=False)
-    workers_2nf.to_csv('main/2NF/workers.csv', index=False)
-    worker_skills_2nf.to_csv('main/2NF/worker_skills.csv', index=False)
-    worker_certs_2nf.to_csv('main/2NF/worker_certifications.csv', index=False)
-    project_workers_2nf.to_csv('main/2NF/project_workers.csv', index=False)
-    suppliers_2nf.to_csv('main/2NF/suppliers.csv', index=False)
-    supplier_phones_2nf.to_csv('main/2NF/supplier_phones.csv', index=False)
-    project_materials_2nf.to_csv('main/2NF/project_materials.csv', index=False)
-    project_equipment_2nf.to_csv('main/2NF/project_equipment.csv', index=False)
+    projects_2nf.to_csv('2NF/projects.csv', index=False)
+    workers_2nf.to_csv('2NF/workers.csv', index=False)
+    worker_skills_2nf.to_csv('2NF/worker_skills.csv', index=False)
+    worker_certs_2nf.to_csv('2NF/worker_certifications.csv', index=False)
+    project_workers_2nf.to_csv('2NF/project_workers.csv', index=False)
+    suppliers_2nf.to_csv('2NF/suppliers.csv', index=False)
+    supplier_phones_2nf.to_csv('2NF/supplier_phones.csv', index=False)
+    project_materials_2nf.to_csv('2NF/project_materials.csv', index=False)
+    project_equipment_2nf.to_csv('2NF/project_equipment.csv', index=False)
     
-    with open('main/2NF/2NF_explanation.md', 'w', encoding='utf-8') as f:
+    with open('2NF/2NF_explanation.md', 'w', encoding='utf-8') as f:
         f.write("""# Stage 2: Second Normal Form (2NF) Explanation
 
 ## 1. Which tables had composite keys?
@@ -278,23 +278,23 @@ A table is in 2NF if it is in 1NF and contains no partial dependencies.
     project_equipment_3nf = project_equipment_3nf[['ProjectID', 'EquipmentID', 'EquipmentRentalCost']].sort_values(['ProjectID', 'EquipmentID'])
 
     # Save 3NF
-    projects_3nf.to_csv('main/3NF/projects.csv', index=False)
-    clients_3nf.to_csv('main/3NF/clients.csv', index=False)
-    supervisors_3nf.to_csv('main/3NF/supervisors.csv', index=False)
-    workers_3nf.to_csv('main/3NF/workers.csv', index=False)
-    worker_skills_3nf.to_csv('main/3NF/worker_skills.csv', index=False)
-    worker_certs_3nf.to_csv('main/3NF/worker_certifications.csv', index=False)
-    project_workers_3nf.to_csv('main/3NF/project_workers.csv', index=False)
-    suppliers_3nf.to_csv('main/3NF/suppliers.csv', index=False)
-    supplier_phones_3nf.to_csv('main/3NF/supplier_phones.csv', index=False)
-    materials_3nf.to_csv('main/3NF/materials.csv', index=False)
-    equipment_3nf.to_csv('main/3NF/equipment.csv', index=False)
-    project_materials_3nf.to_csv('main/3NF/project_materials.csv', index=False)
-    project_suppliers_3nf.to_csv('main/3NF/project_suppliers.csv', index=False)
-    project_equipment_3nf.to_csv('main/3NF/project_equipment.csv', index=False)
+    projects_3nf.to_csv('3NF/projects.csv', index=False)
+    clients_3nf.to_csv('3NF/clients.csv', index=False)
+    supervisors_3nf.to_csv('3NF/supervisors.csv', index=False)
+    workers_3nf.to_csv('3NF/workers.csv', index=False)
+    worker_skills_3nf.to_csv('3NF/worker_skills.csv', index=False)
+    worker_certs_3nf.to_csv('3NF/worker_certifications.csv', index=False)
+    project_workers_3nf.to_csv('3NF/project_workers.csv', index=False)
+    suppliers_3nf.to_csv('3NF/suppliers.csv', index=False)
+    supplier_phones_3nf.to_csv('3NF/supplier_phones.csv', index=False)
+    materials_3nf.to_csv('3NF/materials.csv', index=False)
+    equipment_3nf.to_csv('3NF/equipment.csv', index=False)
+    project_materials_3nf.to_csv('3NF/project_materials.csv', index=False)
+    project_suppliers_3nf.to_csv('3NF/project_suppliers.csv', index=False)
+    project_equipment_3nf.to_csv('3NF/project_equipment.csv', index=False)
 
     # Write 3NF Explanation
-    with open('main/3NF/3NF_explanation.md', 'w', encoding='utf-8') as f:
+    with open('3NF/3NF_explanation.md', 'w', encoding='utf-8') as f:
         f.write("""# Stage 3: Third Normal Form (3NF) Explanation
 
 ## 1. What transitive dependencies did you find?
@@ -334,13 +334,13 @@ In previous manual 3NF designs:
     # BCNF requires that for every functional dependency X -> Y, X must be a candidate key.
     # The corrected 3NF design satisfies BCNF. We will copy the tables over.
     
-    clean_dir('main/BCNF')
-    for file in os.listdir('main/3NF'):
+    clean_dir('BCNF')
+    for file in os.listdir('3NF'):
         if file.endswith('.csv'):
             import shutil
-            shutil.copy(os.path.join('main/3NF', file), os.path.join('main/BCNF', file))
+            shutil.copy(os.path.join('3NF', file), os.path.join('BCNF', file))
         
-    with open('main/BCNF/BCNF_explanation.md', 'w', encoding='utf-8') as f:
+    with open('BCNF/BCNF_explanation.md', 'w', encoding='utf-8') as f:
         f.write("""# Stage 4: Boyce-Codd Normal Form (BCNF) Explanation
 
 ## 1. What functional dependencies did you check?
@@ -368,13 +368,13 @@ A relation is in BCNF if for every functional dependency $X \\rightarrow Y$, $X$
     # 4NF requires that there are no non-trivial multi-valued dependencies (MVDs).
     # Since our BCNF tables already isolate independent multi-valued facts (worker skills vs worker certs, etc.), they satisfy 4NF.
     
-    clean_dir('main/4NF')
-    for file in os.listdir('main/BCNF'):
+    clean_dir('4NF')
+    for file in os.listdir('BCNF'):
         if file.endswith('.csv'):
             import shutil
-            shutil.copy(os.path.join('main/BCNF', file), os.path.join('main/4NF', file))
+            shutil.copy(os.path.join('BCNF', file), os.path.join('4NF', file))
         
-    with open('main/4NF/4NF_explanation.md', 'w', encoding='utf-8') as f:
+    with open('4NF/4NF_explanation.md', 'w', encoding='utf-8') as f:
         f.write("""# Stage 5: Fourth Normal Form (4NF) Explanation
 
 ## 1. What multi-valued dependencies (MVDs) did you find?
@@ -403,33 +403,33 @@ Because these independent multi-valued facts are completely isolated in their ow
     print("[Verification] Running Projection-based Verification...")
     
     # Load 1NF table
-    df_1nf_test = pd.read_csv('main/1NF/1NF_table.csv')
+    df_1nf_test = pd.read_csv('1NF/1NF_table.csv')
     
     # Load 2NF tables
-    projects_2nf = pd.read_csv('main/2NF/projects.csv')
-    workers_2nf = pd.read_csv('main/2NF/workers.csv')
-    worker_skills_2nf = pd.read_csv('main/2NF/worker_skills.csv')
-    worker_certs_2nf = pd.read_csv('main/2NF/worker_certifications.csv')
-    project_workers_2nf = pd.read_csv('main/2NF/project_workers.csv')
-    suppliers_2nf = pd.read_csv('main/2NF/suppliers.csv')
-    supplier_phones_2nf = pd.read_csv('main/2NF/supplier_phones.csv')
-    project_materials_2nf = pd.read_csv('main/2NF/project_materials.csv')
-    project_equipment_2nf = pd.read_csv('main/2NF/project_equipment.csv')
+    projects_2nf = pd.read_csv('2NF/projects.csv')
+    workers_2nf = pd.read_csv('2NF/workers.csv')
+    worker_skills_2nf = pd.read_csv('2NF/worker_skills.csv')
+    worker_certs_2nf = pd.read_csv('2NF/worker_certifications.csv')
+    project_workers_2nf = pd.read_csv('2NF/project_workers.csv')
+    suppliers_2nf = pd.read_csv('2NF/suppliers.csv')
+    supplier_phones_2nf = pd.read_csv('2NF/supplier_phones.csv')
+    project_materials_2nf = pd.read_csv('2NF/project_materials.csv')
+    project_equipment_2nf = pd.read_csv('2NF/project_equipment.csv')
     
     # Load 3NF tables
-    projects_3nf = pd.read_csv('main/3NF/projects.csv')
-    clients_3nf = pd.read_csv('main/3NF/clients.csv')
-    supervisors_3nf = pd.read_csv('main/3NF/supervisors.csv')
-    workers_3nf = pd.read_csv('main/3NF/workers.csv')
-    worker_skills_3nf = pd.read_csv('main/3NF/worker_skills.csv')
-    worker_certs_3nf = pd.read_csv('main/3NF/worker_certifications.csv')
-    project_workers_3nf = pd.read_csv('main/3NF/project_workers.csv')
-    suppliers_3nf = pd.read_csv('main/3NF/suppliers.csv')
-    supplier_phones_3nf = pd.read_csv('main/3NF/supplier_phones.csv')
-    materials_3nf = pd.read_csv('main/3NF/materials.csv')
-    equipment_3nf = pd.read_csv('main/3NF/equipment.csv')
-    project_materials_3nf = pd.read_csv('main/3NF/project_materials.csv')
-    project_equipment_3nf = pd.read_csv('main/3NF/project_equipment.csv')
+    projects_3nf = pd.read_csv('3NF/projects.csv')
+    clients_3nf = pd.read_csv('3NF/clients.csv')
+    supervisors_3nf = pd.read_csv('3NF/supervisors.csv')
+    workers_3nf = pd.read_csv('3NF/workers.csv')
+    worker_skills_3nf = pd.read_csv('3NF/worker_skills.csv')
+    worker_certs_3nf = pd.read_csv('3NF/worker_certifications.csv')
+    project_workers_3nf = pd.read_csv('3NF/project_workers.csv')
+    suppliers_3nf = pd.read_csv('3NF/suppliers.csv')
+    supplier_phones_3nf = pd.read_csv('3NF/supplier_phones.csv')
+    materials_3nf = pd.read_csv('3NF/materials.csv')
+    equipment_3nf = pd.read_csv('3NF/equipment.csv')
+    project_materials_3nf = pd.read_csv('3NF/project_materials.csv')
+    project_equipment_3nf = pd.read_csv('3NF/project_equipment.csv')
     
     all_passed = True
     
@@ -538,19 +538,19 @@ Because these independent multi-valued facts are completely isolated in their ow
     # 3. Primary Key Uniqueness Verification
     print("  Verifying Primary Key Uniqueness...")
     pk_configs = {
-        'main/3NF/projects.csv': ['ProjectID'],
-        'main/3NF/clients.csv': ['ClientID'],
-        'main/3NF/supervisors.csv': ['SupervisorID'],
-        'main/3NF/workers.csv': ['WorkerID'],
-        'main/3NF/worker_skills.csv': ['WorkerID', 'Skill'],
-        'main/3NF/worker_certifications.csv': ['WorkerID', 'Certification'],
-        'main/3NF/project_workers.csv': ['ProjectID', 'WorkerID'],
-        'main/3NF/suppliers.csv': ['SupplierID'],
-        'main/3NF/supplier_phones.csv': ['SupplierID', 'Phone'],
-        'main/3NF/materials.csv': ['MaterialID'],
-        'main/3NF/equipment.csv': ['EquipmentID'],
-        'main/3NF/project_materials.csv': ['ProjectID', 'MaterialID', 'SupplierID'], # Cost depends on Project-Material-Supplier combo
-        'main/3NF/project_equipment.csv': ['ProjectID', 'EquipmentID']
+        '3NF/projects.csv': ['ProjectID'],
+        '3NF/clients.csv': ['ClientID'],
+        '3NF/supervisors.csv': ['SupervisorID'],
+        '3NF/workers.csv': ['WorkerID'],
+        '3NF/worker_skills.csv': ['WorkerID', 'Skill'],
+        '3NF/worker_certifications.csv': ['WorkerID', 'Certification'],
+        '3NF/project_workers.csv': ['ProjectID', 'WorkerID'],
+        '3NF/suppliers.csv': ['SupplierID'],
+        '3NF/supplier_phones.csv': ['SupplierID', 'Phone'],
+        '3NF/materials.csv': ['MaterialID'],
+        '3NF/equipment.csv': ['EquipmentID'],
+        '3NF/project_materials.csv': ['ProjectID', 'MaterialID', 'SupplierID'], # Cost depends on Project-Material-Supplier combo
+        '3NF/project_equipment.csv': ['ProjectID', 'EquipmentID']
     }
     
     for filepath, pks in pk_configs.items():
